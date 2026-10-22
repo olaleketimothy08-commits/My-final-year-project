@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123c31">
+  <meta name="description" content="Administrator sign-in and account registration for GVU MemoFlow.">
+  <title>Admin Access | GVU MemoFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="project.css">
+  <script src="admin.js" defer></script>
+</head>
+<body class="admin-auth-page">
+  <main class="auth-screen">
+    <a class="brand admin-auth-brand" href="project.html" aria-label="Return to GVU MemoFlow">
+      <img class="brand-logo" src="images/gvu-logo.png" alt="Glorious Vision University logo">
+      <span class="brand-copy"><strong>GVU <span>MemoFlow</span></strong><small>LAGOS CAMPUS</small></span>
+    </a>
+    <section class="auth-card" aria-labelledby="admin-auth-title">
+      <div class="auth-intro">
+        <span class="modal-kicker">GLORIOUS VISION UNIVERSITY · LAGOS</span>
+        <h1 id="admin-auth-title">Administrator access</h1>
+        <p id="admin-auth-description">Sign in to review your role inbox.</p>
+      </div>
+      <div class="admin-auth-tabs" role="tablist" aria-label="Administrator account access">
+        <button class="auth-tab active" id="admin-signin-tab" type="button" role="tab" aria-selected="true" aria-controls="admin-signin-panel" data-admin-auth="signin">Admin sign in</button>
+        <button class="auth-tab" id="admin-signup-tab" type="button" role="tab" aria-selected="false" aria-controls="admin-signup-panel" data-admin-auth="signup">Admin sign up</button>
+      </div>
+      <form class="auth-form" id="admin-signin-panel" aria-labelledby="admin-signin-tab">
+        <label class="field">Admin email address <span class="required">*</span><input name="email" type="email" autocomplete="username" required maxlength="254" placeholder="admin@example.com"></label>
+        <label class="field">Password <span class="required">*</span><span class="password-control"><input name="password" type="password" autocomplete="current-password" required minlength="8" placeholder="Enter your password"><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" data-password-toggle>Show</button></span></label>
+        <button class="button button-primary auth-submit" type="submit">Sign in as admin <span>→</span></button>
+      </form>
+      <form class="auth-form hidden" id="admin-signup-panel" aria-labelledby="admin-signup-tab">
+        <label class="field">Full name <span class="required">*</span><input name="name" autocomplete="name" required maxlength="100" placeholder="Enter your full name"></label>
+        <label class="field">Admin email address <span class="required">*</span><input name="email" type="email" autocomplete="email" required maxlength="254" placeholder="admin@example.com"></label>
+        <label class="field">Admin role <span class="required">*</span>
+          <select name="adminRole" required>
+            <option value="">Select your admin role</option>
+            <option>Head of Department</option>
+            <option>Dean</option>
+            <option>Bursar</option>
+            <option>Registrar</option>
+            <option>Vice Chancellor</option>
+          </select>
+        </label>
+        <label class="field hidden" id="admin-unit-field"><span><span id="admin-unit-label">Department or college</span> <span class="required">*</span></span>
+          <select name="adminUnit">
+            <option value="">Select a department or college</option>
+          </select>
+        </label>
+        <label class="field">Password <span class="required">*</span><span class="password-control"><input name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters"><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" data-password-toggle>Show</button></span></label>
+        <label class="field">Confirm password <span class="required">*</span><span class="password-control"><input name="confirmPassword" type="password" autocomplete="new-password" required minlength="8" placeholder="Re-enter your password"><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" data-password-toggle>Show</button></span></label>
+        <button class="button button-primary auth-submit" type="submit">Create admin account <span>→</span></button>
+      </form>
+      <p class="auth-message" id="admin-auth-message" role="status" aria-live="polite"></p>
+      <p class="auth-notice">Prototype accounts are saved in this browser only. This demo is not a production authentication service.</p>
+      <a class="admin-auth-back" href="project.html">← Return to MemoFlow</a>
+    </section>
+  </main>
+</body>
+</html>

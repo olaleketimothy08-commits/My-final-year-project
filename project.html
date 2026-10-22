@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123c31">
+  <meta name="description" content="Institutional memo workflow and approval dashboard for Glorious Vision University, Lagos Campus.">
+  <title>MemoFlow | Glorious Vision University</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="project.css">
+  <script src="project.js" defer></script>
+</head>
+<body>
+  <section class="auth-screen" id="auth-screen">
+    <div class="auth-brand">
+      <img class="brand-logo" src="images/gvu-logo.png" alt="Glorious Vision University logo">
+      <span class="brand-copy"><strong>GVU <span>MemoFlow</span></strong><small>LAGOS CAMPUS</small></span>
+    </div>
+    <div class="auth-card">
+      <div class="auth-intro">
+        <span class="modal-kicker">GLORIOUS VISION UNIVERSITY · LAGOS</span>
+        <h1 id="auth-title">Welcome back</h1>
+        <p id="auth-description">Sign in to create and track your memos.</p>
+      </div>
+      <div class="auth-tabs" role="tablist" aria-label="Account access">
+        <button class="auth-tab active" id="signin-tab" type="button" role="tab" aria-selected="true" aria-controls="signin-panel" data-auth-view="signin">Sign in</button>
+        <button class="auth-tab" id="signup-tab" type="button" role="tab" aria-selected="false" aria-controls="signup-panel" data-auth-view="signup">Create account</button>
+      </div>
+      <form class="auth-form" id="signin-panel" aria-labelledby="signin-tab">
+        <label class="field">Email address <span class="required">*</span><input name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></label>
+        <label class="field">Password <span class="required">*</span><span class="password-control"><input name="password" type="password" autocomplete="current-password" required minlength="8" placeholder="Enter your password"><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" data-password-toggle>Show</button></span></label>
+        <button class="button button-primary auth-submit" type="submit">Sign in <span>→</span></button>
+      </form>
+      <form class="auth-form hidden" id="signup-panel" aria-labelledby="signup-tab">
+        <label class="field">Full name <span class="required">*</span><input name="name" autocomplete="name" required maxlength="100" placeholder="Enter your full name"></label>
+        <label class="field">Email address <span class="required">*</span><input name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></label>
+        <label class="field">Position<span class="required">*</span><select name="type" required><option value="">Select account type</option><option value="Student">Student</option><option value="Staff">Teaching Staff</option><option value="Non-staff">Non-teaching Staff</option></select></label>
+        <label class="field hidden" id="matric-number-field">Matric number <span class="required">*</span><input name="matricNumber" autocomplete="off" maxlength="30" placeholder="Enter your matric number"></label>
+        <label class="field hidden" id="signup-college-field">College <span class="required">*</span><select name="department"><option value="">Select your college</option><option>COLBAHS</option><option>COMPUTING</option><option>COLMAS</option><option>COLHUM</option><option>COLLAW</option><option>COLLEGE OF HEALTH</option></select></label>
+        <label class="field">Password <span class="required">*</span><span class="password-control"><input name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters"><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" data-password-toggle>Show</button></span></label>
+        <label class="field">Confirm password <span class="required">*</span><span class="password-control"><input name="confirmPassword" type="password" autocomplete="new-password" required minlength="8" placeholder="Re-enter your password"><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" data-password-toggle>Show</button></span></label>
+        <button class="button button-primary auth-submit" type="submit">Create account <span>→</span></button>
+      </form>
+      <p class="auth-message" id="auth-message" role="status" aria-live="polite"></p>
+      <p class="auth-notice">Prototype accounts and memos are saved in this browser only. Use a unique password; this demo is not a production authentication service.</p>
+    </div>
+  </section>
+  <div class="app-shell hidden" id="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Glorious Vision University MemoFlow home" data-view="overview">
+        <img class="brand-logo" src="images/gvu-logo.png" alt="">
+        <span class="brand-copy"><strong>GVU <span>MemoFlow</span></strong><small>LAGOS CAMPUS</small></span>
+      </a>
+      <div class="campus-label">DAASHBOARD</div>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="nav-link compose-nav-link" id="new-memo-button" type="button" data-compose><span class="nav-icon">＋</span>Compose</button>
+        <button class="nav-link active" data-view="inbox"><span class="nav-icon">✉</span>Inbox<span class="nav-count hidden" id="nav-pending-count">0</span></button>
+        <button class="nav-link" data-view="drafts"><span class="nav-icon">▧</span>Drafts</button>
+        <button class="nav-link" data-view="sent"><span class="nav-icon">↗</span>Sent</button>
+      </nav>
+      <a class="nav-link admin-access-link" href="admin.html"><span class="nav-icon">⚙</span>Admin access</a>
+      <div class="admin-section hidden" id="admin-section">
+        <button class="nav-link admin-toggle" id="admin-toggle" type="button" aria-expanded="false" aria-controls="admin-role-nav">
+          <span class="nav-icon">⚙</span><span class="admin-label" id="admin-label">Admin</span><span class="admin-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <nav class="role-inbox-nav hidden" id="admin-role-nav" aria-label="Admin role inboxes">
+        </nav>
+      </div>
+      <div class="sidebar-bottom"> 
+        <div class="sidebar-profile">
+          <div class="avatar avatar-sidebar" id="profile-avatar">AO</div>
+          <div class="profile-copy"><strong id="profile-name">Dr. Ola</strong><small id="active-role-label">Head of Department</small></div>
+          <button class="signout-button" id="signout-button" type="button">Sign out</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobile-menu" aria-label="Open navigation">☰</button>
+        <div class="breadcrumb">Glorious Vision University <span>/</span> <strong id="breadcrumb-current">Overview</strong></div>
+        <div class="topbar-actions">
+          <label class="search-box" for="global-search"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Search memos..." autocomplete="off"><kbd>⌘ K</kbd></label>
+          <button class="icon-button notification-button" id="notification-button" aria-label="Show pending approvals">♧<i></i></button>
+          <div class="top-avatar" id="top-avatar" aria-label="Dr. Ola">AO</div>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <section class="page-heading">
+          <div>
+            <div class="eyebrow" id="welcome-date">THURSDAY, 22 OCTOBER</div>
+            <h1 id="page-title">Good morning, Dr. Ola<span class="wave">✳</span></h1>
+            <p id="page-subtitle">Here’s what’s happening across your campus today.</p>
+          </div>
+        </section>
+
+        <section class="overview-view" id="overview-view">
+          <div class="stat-grid">
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">Total memos</span><span class="stat-icon icon-green">▤</span></div>
+              <div class="stat-value" id="stat-total">0</div>
+              <div class="stat-foot"><span class="trend-up">↗ Campus-wide</span><span>all departments</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">Awaiting approval</span><span class="stat-icon icon-amber">◷</span></div>
+              <div class="stat-value" id="stat-pending">0</div>
+              <div class="stat-foot"><span class="stat-neutral">Needs your attention</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">Approved this month</span><span class="stat-icon icon-blue">✓</span></div>
+              <div class="stat-value" id="stat-approved">0</div>
+              <div class="stat-foot"><span class="trend-up">↗ Workflow complete</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">Drafts</span><span class="stat-icon icon-purple">▧</span></div>
+              <div class="stat-value" id="stat-drafts">0</div>
+              <div class="stat-foot"><span class="stat-neutral">Ready when you are</span></div>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="panel approvals-panel">
+              <div class="panel-heading">
+                <div><h2>Needs your attention</h2><p id="dashboard-approval-subtitle">Memos waiting for your review</p></div>
+                <button class="text-link" data-view="approvals">View queue <span>→</span></button>
+              </div>
+              <div class="approval-list" id="dashboard-approvals"></div>
+            </section>
+            <section class="panel activity-panel">
+              <div class="panel-heading">
+                <div><h2>Workflow activity</h2><p>A look at memo progress</p></div>
+                <span class="period-chip">This week</span>
+              </div>
+              <div class="chart-summary"><div><strong id="chart-total">0</strong><span>memos processed</span></div><span class="chart-trend">↑ Active workflow</span></div>
+              <div class="chart" aria-label="Memo activity during the week">
+                <div class="chart-bars" id="chart-bars"></div>
+                <div class="chart-days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+              </div>
+              <div class="chart-legend"><span><i></i> Memos created</span><span><i></i> Approvals</span></div>
+            </section>
+          </div>
+
+          <section class="panel recent-panel">
+            <div class="panel-heading">
+              <div><h2>Recent memos</h2><p>Latest documents from across campus</p></div>
+              <button class="text-link" data-view="all">All memos <span>→</span></button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>MEMO</th><th>FROM</th><th>DATE</th><th>PRIORITY</th><th>STATUS</th><th></th></tr></thead>
+                <tbody id="recent-memos"></tbody>
+              </table>
+            </div>
+          </section>
+          <p class="prototype-note">MemoFlow prototype · Data is saved in this browser only.</p>
+        </section>
+
+        <section class="list-view hidden" id="list-view">
+          <section class="panel list-panel">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>MEMO</th><th>FROM</th><th>DATE</th><th>PRIORITY</th><th>STATUS</th><th></th></tr></thead>
+                <tbody id="memo-list"></tbody>
+              </table>
+            </div>
+          </section>
+          <p class="prototype-note">MemoFlow prototype · Data is saved in this browser only.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="mobile-scrim" id="mobile-scrim"></div>
+
+  <div class="modal-backdrop hidden" id="memo-modal" role="dialog" aria-modal="true" aria-labelledby="memo-modal-title">
+    <div class="modal modal-wide">
+      <div class="modal-heading"><div><span class="modal-kicker">GLORIOUS VISION UNIVERSITY · LAGOS</span><h2 id="memo-modal-title">Compose a memo</h2><p id="memo-modal-description">Write a memo and send it to another account.</p></div><button class="close-button" data-close-modal aria-label="Close">×</button></div>
+      <form id="memo-form">
+        <div class="form-grid">
+          <label class="field field-full">Subject <span class="required">*</span><input name="title" required maxlength="120" placeholder="e.g. Request for approval to host the annual research symposium"></label>
+          <label class="field">Sender type <span class="required">*</span><select name="senderType" required><option value="">Select sender type</option><option value="Student">Student</option><option value="Staff">Teaching Staff</option><option value="Non-staff">Non-teaching Staff</option></select></label>
+          <label class="field">Your name <span class="required">*</span><input name="author" required maxlength="100" autocomplete="name" placeholder="Enter your full name"></label>
+          <label class="field">Department / College <span class="optional">(if applicable)</span><select name="department"><option value="">Select department or college</option><option>COLBAHS</option><option>COMPUTING</option><option>COLMAS</option><option>COLHUM</option><option>COLLAW</option><option>COLLEGE OF HEALTH</option></select></label>
+          <label class="field">Priority<select name="priority"><option>Normal</option><option>High</option><option>Urgent</option></select></label>
+          <label class="field hidden" id="delivery-mode-field">Send as <span class="required">*</span><select name="deliveryMode"><option value="direct">Direct message</option><option value="approval">Approval request</option></select></label>
+          <label class="field field-full hidden" id="recipient-email-field">To email address <span class="required">*</span><input name="recipientEmail" type="email" maxlength="254" autocomplete="email" placeholder="recipient@example.com"><span class="field-hint">The recipient must have a MemoFlow account in this browser.</span></label>
+          <label class="field" id="approver-field">Send to office for approval <span class="required">*</span><select name="approver"><option value="">Select an office</option></select></label>
+          <label class="field field-full">Memo details <span class="required">*</span><textarea name="body" required rows="5" maxlength="5000" placeholder="Add the purpose, background, and any action required..."></textarea><span class="field-hint">Be concise and include any relevant dates or next steps.</span></label>
+        </div>
+        <div class="modal-footer"><button type="button" class="button button-quiet" id="save-draft-button">Save as draft</button><div class="footer-actions"><button type="button" class="button button-quiet" data-close-modal>Cancel</button><button type="submit" class="button button-primary">Send for approval <span>→</span></button></div></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+    <div class="modal modal-detail">
+      <div class="modal-heading"><div><span class="modal-kicker" id="detail-reference"></span><h2 id="detail-title"></h2><div class="detail-meta" id="detail-meta"></div></div><button class="close-button" data-close-modal aria-label="Close">×</button></div>
+      <div class="detail-content"><div class="detail-route" id="detail-route"></div><div class="detail-body" id="detail-body"></div><div class="decision-note hidden" id="decision-note"></div></div>
+      <div class="detail-review hidden" id="detail-review"><label class="field">Review note <span class="optional">(optional)</span><textarea id="review-note" rows="3" maxlength="500" placeholder="Add a note for the sender..."></textarea></label></div>
+      <div class="modal-footer detail-footer"><span id="detail-footer-hint"></span><div class="footer-actions" id="detail-actions"></div></div>
+    </div>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+</body>
+</html>
