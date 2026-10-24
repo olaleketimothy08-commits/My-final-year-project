@@ -14,6 +14,7 @@
 </head>
 <body>
   <section class="auth-screen" id="auth-screen">
+    <a class="admin-login-link" href="admin.html">Admin Access <span aria-hidden="true"></span></a>
     <div class="auth-brand">
       <img class="brand-logo" src="images/gvu-logo.png" alt="Glorious Vision University logo">
       <span class="brand-copy"><strong>GVU <span>MemoFlow</span></strong><small>LAGOS CAMPUS</small></span>
@@ -53,14 +54,13 @@
         <img class="brand-logo" src="images/gvu-logo.png" alt="">
         <span class="brand-copy"><strong>GVU <span>MemoFlow</span></strong><small>LAGOS CAMPUS</small></span>
       </a>
-      <div class="campus-label">DAASHBOARD</div>
+      <div class="campus-label">DASHBOARD</div>
       <nav class="primary-nav" aria-label="Main navigation">
         <button class="nav-link compose-nav-link" id="new-memo-button" type="button" data-compose><span class="nav-icon">＋</span>Compose</button>
         <button class="nav-link active" data-view="inbox"><span class="nav-icon">✉</span>Inbox<span class="nav-count hidden" id="nav-pending-count">0</span></button>
         <button class="nav-link" data-view="drafts"><span class="nav-icon">▧</span>Drafts</button>
         <button class="nav-link" data-view="sent"><span class="nav-icon">↗</span>Sent</button>
       </nav>
-      <a class="nav-link admin-access-link" href="admin.html"><span class="nav-icon">⚙</span>Admin access</a>
       <div class="admin-section hidden" id="admin-section">
         <button class="nav-link admin-toggle" id="admin-toggle" type="button" aria-expanded="false" aria-controls="admin-role-nav">
           <span class="nav-icon">⚙</span><span class="admin-label" id="admin-label">Admin</span><span class="admin-chevron" aria-hidden="true">⌄</span>

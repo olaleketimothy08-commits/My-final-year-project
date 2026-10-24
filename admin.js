@@ -151,7 +151,7 @@
       };
       saveAccounts([...accounts, account]);
       sessionStorage.setItem(SESSION_KEY, email);
-      window.location.assign("project.html");
+      window.location.assign("index.html");
     } catch (error) {
       console.error("Unable to create a MemoFlow administrator account.", error);
       showMessage(error.message || "Could not create your account. Please try again.");
@@ -179,7 +179,7 @@
         return;
       }
       sessionStorage.setItem(SESSION_KEY, account.email);
-      window.location.assign("project.html");
+      window.location.assign("index.html");
     } catch (error) {
       console.error("Unable to sign in to MemoFlow administration.", error);
       showMessage(error.message || "Could not sign in. Please try again.");
